@@ -56,8 +56,9 @@ class db:
             cus.execute(q)
             outp = cus.fetchall()
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return outp
         elif self._SUBD == 'postgre':
             conn = psycopg.connect(dbname=self._db['dbname'],user=self._db['user'],password=self._db['password'],host=self._db['host'],port=self._db['port'])
@@ -71,7 +72,6 @@ class db:
 
     def selectf(self, table:str, columns:list=[], filter:str=None):
         '''
-        select values from db\n
         select('tablename', columns=['column1', 'column2', ... ,], filter='sql filter')\n
         select('tablename', filter='sql filter') - all columns\n\n
         db_obj.tablename.selectf(filter='sql filter')
@@ -96,8 +96,9 @@ class db:
                     one[columns[i]] = r[i]
                 output.append(_db_output(one, table, self._SUBD, self._db))
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output
         
         elif self._SUBD == 'postgre':
@@ -120,13 +121,13 @@ class db:
                     one[columns[i]] = r[i]
                 output.append(_db_output(one, table, self._SUBD, self._db))
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output
 
     def select(self, table:str, *columns, **filter):
         '''
-        select values from db\n
         select('tablename', 'column1', 'column2', ... , column=value, column2=value, ...)\n
         select('tablename', column=value, column1=value1, ...) - all columns\n\n
         db_obj.tablename.select(column=value, column1=value1, ...)
@@ -162,8 +163,9 @@ class db:
                     one[columns[i]] = r[i]
                 output.append(_db_output(one, table, self._SUBD, self._db))
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output
         
         elif self._SUBD == 'postgre':
@@ -197,8 +199,9 @@ class db:
                     one[columns[i]] = r[i]
                 output.append(_db_output(one, table, self._SUBD, self._db))
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output
     
     def select1(self, table:str, *columns, **filter):
@@ -232,8 +235,9 @@ class db:
                     one[columns[i]] = r[i]
                 output.append(_db_output(one, table, self._SUBD, self._db))
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output[0] if output else None
 
         elif self._SUBD == 'postgre':
@@ -263,14 +267,13 @@ class db:
                     one[columns[i]] = r[i]
                 output.append(_db_output(one, table, self._SUBD, self._db))
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output[0] if output else None
 
     def insertf(self, table:str, columns:list=[], values:list=[]):
         '''
-        insert values to db\n
-
         incert2('table_name', columns=['column','column2', ...], values=['value1','value2',...])\n
         incert2('table_name', values=['value1','value2',...]) - all columns\n
         '''
@@ -288,8 +291,9 @@ class db:
             cus.execute(f"insert into {table} {cols} values ({vals})")
             output = ''
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output
         
         elif self._SUBD == 'postgre':
@@ -306,14 +310,13 @@ class db:
             cus.execute(f"insert into {table} {cols} values ({vals})")
             output = ''
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output
 
     def insert(self, table:str, **colvals):
         '''
-        insert values to db\n
-
         incert('table_name', column=value, column_2=value_2, ...)\n
         db_obj.tablename.insert(column=value, column_2=value_2, ...)
         '''
@@ -330,8 +333,9 @@ class db:
             cus.execute(f"insert into {table} ({cols}) values ({vals})")
             output = ''
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output
         
         elif self._SUBD == 'postgre':
@@ -347,8 +351,9 @@ class db:
             cus.execute(f"insert into {table} ({cols}) values ({vals})")
             output = ''
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output
     
     def update(self, table:str, filter:str, values:dict):
@@ -368,8 +373,9 @@ class db:
             cus.execute(f"update {table} set {vals} where {filter}")
             output = cus.fetchall()
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output
         
         elif self._SUBD == 'postgre':
@@ -384,8 +390,9 @@ class db:
             cus.execute(f"update {table} set {vals} where {filter}")
             output = cus.fetchall()
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output
 
     def deletef(self, table:str, filter:str):
@@ -398,8 +405,9 @@ class db:
             cus.execute(f"delete from {table} {f"where {filter}" if filter else ''}")
             output = cus.fetchall()
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output
         elif self._SUBD == 'postgre':
             con = psycopg.connect(dbname=self._db['dbname'],user=self._db['user'],password=self._db['password'],host=self._db['host'],port=self._db['port'])
@@ -407,8 +415,9 @@ class db:
             cus.execute(f"delete from {table} {f"where {filter}" if filter else ''}")
             output = cus.fetchall()
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output
         
     def delete(self, table:str, **filter):
@@ -428,8 +437,9 @@ class db:
             cus.execute(f"delete from {table} {f"where {filtr}" if filtr else ''}")
             output = cus.fetchall()
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output
         
         elif self._SUBD == 'postgre':
@@ -444,8 +454,9 @@ class db:
             cus.execute(f"delete from {table} {f"where {filtr}" if filtr else ''}")
             output = cus.fetchall()
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output
 
 
@@ -486,7 +497,11 @@ class _db_table:
         return f"<db table (columns: {outp})>"
 
 
-    def selectf(self, columns:list=[], filter:str=None): #**filter
+    def selectf(self, columns:list=[], filter:str=None):
+        '''
+        select(columns=['column1', 'column2', ... ,], filter='sql filter')\n
+        select(filter='sql filter') - all columns\n\n
+        '''
         table = self._table_name
         if self._SUBD == 'sqlite':
             con = sqlite3.connect(self._db)
@@ -506,11 +521,16 @@ class _db_table:
                     one[columns[i]] = r[i]
                 output.append(_db_output(one, table, self._SUBD, self._db))
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output
     
     def select(self, *columns, **filter):
+        '''
+        select('column1', 'column2', ... , column=value, column2=value, ...)\n
+        select(column=value, column1=value1, ...) - all columns\n\n
+        '''
         table = self._table_name
         if self._SUBD == 'sqlite':
             con = sqlite3.connect(self._db)
@@ -542,11 +562,15 @@ class _db_table:
                     one[columns[i]] = r[i]
                 output.append(_db_output(one, table, self._SUBD, self._db))
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output
 
     def select1(self, *columns, **filter):
+        '''
+        same as select() but returns only first value
+        '''
         table = self._table_name
         if self._SUBD == 'sqlite':
             con = sqlite3.connect(self._db)
@@ -574,11 +598,16 @@ class _db_table:
                     one[columns[i]] = r[i]
                 output.append(_db_output(one, table, self._SUBD, self._db))
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output[0] if output else None
 
     def update(self, filter:str, values:dict):
+        '''
+        update(filter='sql filter', values={'column': 'new_value', 'column2': 'new_value2', ...})\n
+        !!!or can be used as method of "select()" output - select(...).update(column=new_value, column2=new_value2, ...)
+        '''
         table = self._table_name
         if self._SUBD == 'sqlite':
             con = sqlite3.connect(self._db)
@@ -592,11 +621,16 @@ class _db_table:
             cus.execute(f"update {table} set {vals} where {filter}")
             output = cus.fetchall()
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output
 
     def insertf(self, columns:list=[], values:list=[]):
+        '''
+        incertf('columns=['column','column2', ...], values=['value1','value2',...])\n
+        incertf(values=['value1','value2',...]) - all columns\n
+        '''
         table = self._table_name
         if self._SUBD == 'sqlite':
             con = sqlite3.connect(self._db)
@@ -612,11 +646,15 @@ class _db_table:
             cus.execute(f"insert into {table} {cols} values ({vals})")
             output = cus.fetchall()
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output
 
     def insert(self, **colvals):
+        '''
+        incert(column=value, column_2=value_2, ...)\n
+        '''
         table = self._table_name
         if self._SUBD == 'sqlite':
             con = sqlite3.connect(self._db)
@@ -631,11 +669,15 @@ class _db_table:
             cus.execute(f"insert into {table} ({cols}) values ({vals})")
             output = cus.fetchall()
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output
 
     def deletef(self, filter:str):
+        '''
+        deletef(filter='sql_filter')
+        '''
         table = self._table_name
         if self._SUBD == 'sqlite':
             con = sqlite3.connect(self._db)
@@ -643,11 +685,16 @@ class _db_table:
             cus.execute(f"delete from {table} {f"where {filter}" if filter else ''}")
             output = cus.fetchall()
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output
         
     def delete(self, **filter):
+        '''
+        delete(column=value, column2=value2, ...)\n
+        or can be used as method of "select()" output - select(...).delete()
+        '''
         table = self._table_name
         if self._SUBD == 'sqlite':
             con = sqlite3.connect(self._db)
@@ -661,8 +708,9 @@ class _db_table:
             cus.execute(f"delete from {table} {f"where {filtr}" if filtr else ''}")
             output = cus.fetchall()
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output
 
 class _db_output:
@@ -725,8 +773,9 @@ class _db_output:
             cus.execute(f"update {table} set {vals} where {filtr}")
             output = ''
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output
         
         elif self._SUBD == 'postgre':
@@ -745,8 +794,9 @@ class _db_output:
             cus.execute(f"update {table} set {vals} where {filtr}")
             output = ''
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output
 
     def delete(self):
@@ -758,8 +808,9 @@ class _db_output:
             cus.execute(f"delete from {table} where {filtr}")
             output = cus.fetchall()
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output
         
         elif self._SUBD == 'postgre':
@@ -770,6 +821,7 @@ class _db_output:
             cus.execute(f"delete from {table} where {filtr}")
             output = cus.fetchall()
             con.commit()
-            con.close()
             cus.close()
+            con.close()
+            
             return output
