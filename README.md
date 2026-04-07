@@ -1,4 +1,4 @@
 ## Languages
 
-* **[English](README.md)** (default)
+* **[English](README.md)**
 * **[Русский](README.ru.md)**
